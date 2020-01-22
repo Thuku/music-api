@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "thuku",
+    "password": null,
+    "database": "music_streaming",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "thuku",
+    "password": null,
+    "database": "music_streaming_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
