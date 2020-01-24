@@ -5,15 +5,15 @@ class AlbumController {
 
     try {
 
-      const Albums = await Models.Album.findAll();
+      const albums = await Models.Album.findAll();
       if (Albums) {
 
         return res
           .status(200)
-          .json({ message: "Albums fetched", albums: Albums });
+          .json({ message: "Albums fetched", data: albums, status: 200 });
 
       } else {
-        return res.status(404).json({ message: "No Albums found", albums: [] });
+        return res.status(404).json({ message: "No Albums found", data: albums, status: 404 });
       }
     } catch (error) {
       return next(error);
@@ -27,11 +27,15 @@ class AlbumController {
       const album = await Models.Album.findByPk(req.params.album_id);
       if (album) {
 
-        return res.status(200).json({ message: "Album fetched", album });
+        return res
+          .status(200)
+          .json({ message: "Album fetched", data: album, status: 200 });
 
       } else {
 
-        return res.status(404).json({ message: "Album not fetched", album });
+        return res
+          .status(404)
+          .json({ message: "Album not fetched", data: album, status: 404 });
       }
     } catch (error) {
       return next(error);
@@ -54,12 +58,17 @@ class AlbumController {
 
         return res
           .status(200)
-          .json({ message: "Album details fetched", albumDetails });
+          .json({
+            message: "Album details fetched",
+            data: albumDetails,
+            status: 200
+          });
       } else {
 
         res.status(404).json({
           message: "Album details not found",
-          albumDetails: []
+          data: albumDetails,
+          status: 404
         });
       }
     } catch (error) {
@@ -80,13 +89,18 @@ class AlbumController {
 
         return res
           .status(200)
-          .json({ message: "Albums fetched successfully", artistAlbums });
+          .json({
+            message: "Albums fetched successfully",
+            data: artistAlbums,
+            status: 200
+          });
 
       } else {
 
         res.status(404).json({
           message: "Albums not found",
-          albumDetails: []
+          data: albumDetails,
+          status: 200
         });
 
       }
