@@ -1,25 +1,15 @@
 import Models from "../../models";
 
 class SongController {
-  /**
-   * This method gets all songs
-   */
+
   static async getAllSongs(req, res, next) {
     try {
       const allSongs = await Models.Song.findAll();
-      return res.status(200).json({ message: "All songs Fetched", allSongs });
+      return res.status(200).json({ message: "All songs Fetched", data: allSongs, status: 200 });
     } catch (error) {
-      res.status(500).json({
-        message: "Something went wrong",
-        error
-      });
+      next(error)
     }
   }
-
-  /**
-   * This method gets album songs
-   *
-   */
 
   static async getAlbumSongs(req, res, next) {
     try {
@@ -37,10 +27,7 @@ class SongController {
           data: albumSongs
         });
     } catch (error) {
-      res.status(500).json({
-        message: "Something went wrong",
-        error
-      });
+      next(error)
     }
   }
 
@@ -59,10 +46,7 @@ class SongController {
         .json({status: 404, data:song, message: "Song Not found" });
       }
     } catch (error) {
-      res.status(500).json({
-        message: "Something went wrong",
-        error
-      });
+      next(error)
     }
   }
 
@@ -75,12 +59,9 @@ class SongController {
       });
       return res
         .status(404)
-        .json({ message: "Song fetched successfully", artistSongs });
+        .json({ message: "Song fetched successfully", data: artistSongs, status: 404 });
     } catch (error) {
-      res.status(500).json({
-        message: "Something went wrong",
-        error
-      });
+      next(error)
     }
   }
 }

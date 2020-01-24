@@ -100,7 +100,7 @@ class AlbumController {
         res.status(404).json({
           message: "Albums not found",
           data: albumDetails,
-          status: 200
+          status: 404
         });
 
       }
