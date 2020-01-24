@@ -78,6 +78,32 @@ class SongController {
       next(error)
     }
   }
+  static async createSong(req, res, next) {
+    try {
+      const {name, duration, popularity, artistId, albumId, price} = req.body;      
+      if (!name, !duration, !popularity, !artistId, !albumId, !price) {
+        util.setResponse(400, "Provide all details", null, "error");
+        util.send(res);
+      } else {
+        const song = {
+          name,
+          duration,
+          popularity,
+          artistId,
+          albumId,
+          price,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+
+        const createdSong = await Models.Song.create(song);
+        util.setResponse(201, "Song created", createdSong, "success");
+        util.send(res);
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export default SongController;

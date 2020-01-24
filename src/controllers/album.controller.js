@@ -92,6 +92,35 @@ class AlbumController {
       return next(error);
     }
   }
+
+  static async createAlbum(req, res, next) {
+    try {   
+      const {name, genre, price, description, label, release, totalReviews, artistId} = req.body   
+      if (!name, !genre, !price, !description, !label, !release, !totalReviews, !artistId) {
+        util.setResponse(400, "Provide all details", null, "error");
+        util.send(res);
+      } else {
+        const album = {
+          name,
+          genre,
+          price,
+          description,
+          label,
+          release,
+          totalReviews,
+          artistId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+
+        const createdAlbum = await Models.Album.create(album);
+        util.setResponse(201, "Album created", createdAlbum, "success");
+        util.send(res);
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export default AlbumController;
