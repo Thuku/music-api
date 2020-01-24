@@ -28,9 +28,14 @@ class SongController {
           albumId: req.params.album_id
         }
       });
+
       return res
         .status(200)
-        .json({ message: "Album songs fetched", albumSongs });
+        .json({
+          status: 200,
+          message: "Album songs fetched",
+          data: albumSongs
+        });
     } catch (error) {
       res.status(500).json({
         message: "Something went wrong",
@@ -42,9 +47,17 @@ class SongController {
   static async getSong(req, res, next) {
     try {
       const song = await Models.Song.findByPk(req.params.song_id);
+      if(song){
+
+      
       return res
         .status(200)
-        .json({ message: "song fetched successfully", song });
+        .json({ message: "Song fetched successfully", data: song , status: 200 });
+      }else{
+        return res
+        .status(404)
+        .json({status: 404, data:song, message: "Song Not found" });
+      }
     } catch (error) {
       res.status(500).json({
         message: "Something went wrong",
@@ -61,8 +74,8 @@ class SongController {
         }
       });
       return res
-        .status(200)
-        .json({ message: "song fetched successfully", artistSongs });
+        .status(404)
+        .json({ message: "Song fetched successfully", artistSongs });
     } catch (error) {
       res.status(500).json({
         message: "Something went wrong",
