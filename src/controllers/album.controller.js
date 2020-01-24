@@ -1,20 +1,21 @@
 import Models from "../../models";
+import Util from "../util/index"
 
+const util = new Util()
 class AlbumController {
   static async getAllAlbums(req, res, next) {
 
     try {
 
       const albums = await Models.Album.findAll();
-      if (Albums) {
 
-        return res
-          .status(200)
-          .json({ message: "Albums fetched", data: albums, status: 200 });
-
+      if (albums) {
+        
+        util.setResponse(200, "Albums fetched", albums, "success")
       } else {
-        return res.status(404).json({ message: "No Albums found", data: albums, status: 404 });
+        util.setResponse(404, "No Albums found", null, "error")
       }
+      return util.send(res)
     } catch (error) {
       return next(error);
     }
@@ -27,16 +28,14 @@ class AlbumController {
       const album = await Models.Album.findByPk(req.params.album_id);
       if (album) {
 
-        return res
-          .status(200)
-          .json({ message: "Album fetched", data: album, status: 200 });
+        util.setResponse(200, "Album fetched", album, "success")
 
       } else {
 
-        return res
-          .status(404)
-          .json({ message: "Album not fetched", data: album, status: 404 });
+        util.setResponse(404, "Album not found", album, "success")
+
       }
+      return util.send(res)
     } catch (error) {
       return next(error);
     }
@@ -56,21 +55,14 @@ class AlbumController {
 
       if (albumDetails) {
 
-        return res
-          .status(200)
-          .json({
-            message: "Album details fetched",
-            data: albumDetails,
-            status: 200
-          });
+        util.setResponse(200, "Album details fetched", albumDetails, "success")
       } else {
 
-        res.status(404).json({
-          message: "Album details not found",
-          data: albumDetails,
-          status: 404
-        });
+        util.setResponse(404, "Album detail not found", albumDetails, "success")
+
       }
+
+      return util.send(res)
     } catch (error) {
       return next(error);
     }
@@ -87,23 +79,15 @@ class AlbumController {
 
       if (artistAlbums) {
 
-        return res
-          .status(200)
-          .json({
-            message: "Albums fetched successfully",
-            data: artistAlbums,
-            status: 200
-          });
+        util.setResponse(200, "Albums fetched", artistAlbums, "success")
 
       } else {
 
-        res.status(404).json({
-          message: "Albums not found",
-          data: albumDetails,
-          status: 404
-        });
-
+        util.setResponse(404, "Albums not found", artistAlbums, "success")
+ 
       }
+
+      return util.send(res)
     } catch (error) {
       return next(error);
     }
