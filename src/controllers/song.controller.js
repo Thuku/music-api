@@ -1,11 +1,21 @@
 import Models from "../../models";
+import Util from "../util"
+
+const util = new Util()
 
 class SongController {
 
   static async getAllSongs(req, res, next) {
     try {
       const allSongs = await Models.Song.findAll();
-      return res.status(200).json({ message: "All songs Fetched", data: allSongs, status: 200 });
+      if(allSongs){
+
+        util.setResponse(200, "All songs fetched successfully", allSongs, "success")
+
+      }else{
+      util.setResponse(404, "songs not found", null, "success")
+      }
+      return util.send(res)
     } catch (error) {
       next(error)
     }
@@ -19,13 +29,15 @@ class SongController {
         }
       });
 
-      return res
-        .status(200)
-        .json({
-          status: 200,
-          message: "Album songs fetched",
-          data: albumSongs
-        });
+      if (albumSongs) {
+
+        util.setResponse(200, "Album songs fetched", albumSongs, "success")
+      } else {
+
+        util.setResponse(404, "Album songs not found", null, "success")
+      }
+
+      return util.send(res)
     } catch (error) {
       next(error)
     }
@@ -36,15 +48,12 @@ class SongController {
       const song = await Models.Song.findByPk(req.params.song_id);
       if(song){
 
-      
-      return res
-        .status(200)
-        .json({ message: "Song fetched successfully", data: song , status: 200 });
+        util.setResponse(200, "Song fetched successfully", song, "success")
       }else{
-        return res
-        .status(404)
-        .json({status: 404, data:song, message: "Song Not found" });
+
+        util.setResponse(200, "Song not found", null, "success")
       }
+      return util.send(res)
     } catch (error) {
       next(error)
     }
@@ -57,9 +66,14 @@ class SongController {
           artistId: req.params.artist_id
         }
       });
-      return res
-        .status(200)
-        .json({ message: "Song fetched successfully", data: artistSongs, status: 200 });
+      if (artistSongs) {
+        util.setResponse(200, "Artist songs fetched successfully", artistSongs, "success")
+
+        
+      } else {
+        util.setResponse(404, "Artist songs not found", null, "success")
+      }
+      return util.send(res)
     } catch (error) {
       next(error)
     }

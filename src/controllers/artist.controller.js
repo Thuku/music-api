@@ -1,4 +1,7 @@
 import Models from "../../models";
+import Util from '../util'
+
+const util = new Util()
 
 class ArtistController {
 
@@ -6,21 +9,14 @@ class ArtistController {
     try {
       const artists = await Models.Artist.findAll();
 
-      if (allArtists) {
+      if (artists) {
 
-        return res.status(200).json({
-          message: "Artists fetched successfully",
-          data: artists,
-          status: 200
-        });
+        util.setResponse(200, "Artists fetched", artists, "success");
       } else {
 
-        return res.status(404).json({
-          message: "No artists fetched ",
-          data: artists,
-          status: 404
-        });
+        util.setResponse(404, "Artists not found", null, "success");
       }
+      return util.send(res);
     } catch (error) {
       return next(error);
     }
@@ -31,21 +27,14 @@ class ArtistController {
       const artistDetails = await Models.Artist.findByPk(req.params.artist_id);
 
       if (artistDetails) {
+        util.setResponse(200, "Artist details fetched successfully", artistDetails, "success")
 
-        return res.status(200).json({
-          message: "Artist details fetched successfully",
-          data: artistDetails,
-          status: 200
-        });
 
       } else {
+        util.setResponse(404, "Artist details not found", null, "success")
 
-        return res.status(404).json({
-          message: "No artist with given id ",
-          data: artist,
-          status: 404
-        });
       }
+      return util.send(res)
     } catch (error) {
       return next(error);
     }

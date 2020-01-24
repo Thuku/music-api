@@ -14,7 +14,6 @@ describe("Testing artists endpoints:", () => {
       .get(`/artists/${artistId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
-
         expect(res.status).to.equal(200);
         res.body.data.should.have.property("id");
         res.body.data.should.have.property("name");
@@ -55,7 +54,6 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/${songId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
-        
         expect(res.status).to.equal(200);
         res.body.data.should.have.property("id");
         res.body.data.should.have.property("name");
@@ -76,8 +74,6 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/album/${albumId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
-
-
         expect(res.status).to.equal(200);
         expect(res.body.data).to.be.an("array");
 
@@ -91,8 +87,6 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/artist/${artistId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
-        console.log("res>>>>>>>", res.body);
-
         expect(res.status).to.equal(200);
         expect(res.body.data).to.be.an("array");
 
@@ -106,7 +100,6 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/album/${albumId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
-
         expect(res.status).to.equal(200);
         expect(res.body.message).to.be.equal("Album songs fetched");
         expect(res.body.data.length).to.be.equal(0);
