@@ -1,6 +1,6 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  
+
   const Album = sequelize.define(
     "Album",
     {
@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
+  
   Album.associate = function(models) {
     // associations can be defined here
     models.Album.hasMany(models.Song, {

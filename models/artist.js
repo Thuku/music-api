@@ -1,6 +1,6 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  
+
   const Artist = sequelize.define(
     "Artist",
     {
@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
+  
   Artist.associate = function(models) {
     models.Artist.hasMany(models.Song, {
       foreignKey: "artistId",

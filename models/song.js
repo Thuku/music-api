@@ -1,6 +1,6 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  
+
   const Song = sequelize.define(
     "Song",
     {
@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
+  
   Song.associate = function(models) {
     // associations can be defined here
     Song.belongsTo(models.Artist, { foreignKey: "artistId", as: "artist" });
