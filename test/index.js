@@ -14,11 +14,12 @@ describe("Testing artists endpoints:", () => {
       .get(`/artists/${artistId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
+
         expect(res.status).to.equal(200);
-        res.body.artist.should.have.property("id");
-        res.body.artist.should.have.property("name");
-        res.body.artist.should.have.property("createdAt");
-        res.body.artist.should.have.property("updatedAt");
+        res.body.data.should.have.property("id");
+        res.body.data.should.have.property("name");
+        res.body.data.should.have.property("createdAt");
+        res.body.data.should.have.property("updatedAt");
         done();
       });
   });
@@ -32,16 +33,16 @@ describe("Testing albums endpoints:", () => {
       .set("Accept", "application/json")
       .end((err, res) => {
         expect(res.status).to.equal(200);
-        res.body.album.should.have.property("id");
-        res.body.album.should.have.property("name");
-        res.body.album.should.have.property("price");
-        res.body.album.should.have.property("description");
-        res.body.album.should.have.property("totalReviews");
-        res.body.album.should.have.property("release");
-        res.body.album.should.have.property("genre");
-        res.body.album.should.have.property("artistId");
-        res.body.album.should.have.property("createdAt");
-        res.body.album.should.have.property("updatedAt");
+        res.body.data.should.have.property("id");
+        res.body.data.should.have.property("name");
+        res.body.data.should.have.property("price");
+        res.body.data.should.have.property("description");
+        res.body.data.should.have.property("totalReviews");
+        res.body.data.should.have.property("release");
+        res.body.data.should.have.property("genre");
+        res.body.data.should.have.property("artistId");
+        res.body.data.should.have.property("createdAt");
+        res.body.data.should.have.property("updatedAt");
         done();
       });
   });
@@ -54,16 +55,17 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/${songId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
+        
         expect(res.status).to.equal(200);
-        res.body.song.should.have.property("id");
-        res.body.song.should.have.property("name");
-        res.body.song.should.have.property("price");
-        res.body.song.should.have.property("duration");
-        res.body.song.should.have.property("popularity");
-        res.body.song.should.have.property("albumId");
-        res.body.song.should.have.property("artistId");
-        res.body.song.should.have.property("createdAt");
-        res.body.song.should.have.property("updatedAt");
+        res.body.data.should.have.property("id");
+        res.body.data.should.have.property("name");
+        res.body.data.should.have.property("price");
+        res.body.data.should.have.property("duration");
+        res.body.data.should.have.property("popularity");
+        res.body.data.should.have.property("albumId");
+        res.body.data.should.have.property("artistId");
+        res.body.data.should.have.property("createdAt");
+        res.body.data.should.have.property("updatedAt");
         done();
       });
   });
@@ -74,8 +76,10 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/album/${albumId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
+
+
         expect(res.status).to.equal(200);
-        expect(res.body.albumSongs).to.be.an("array");
+        expect(res.body.data).to.be.an("array");
 
         done();
       });
@@ -87,8 +91,10 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/artist/${artistId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
+        console.log("res>>>>>>>", res.body);
+
         expect(res.status).to.equal(200);
-        expect(res.body.artistSongs).to.be.an("array");
+        expect(res.body.data).to.be.an("array");
 
         done();
       });
@@ -100,9 +106,10 @@ describe("Testing songs endpoints:", () => {
       .get(`/songs/album/${albumId}`)
       .set("Accept", "application/json")
       .end((err, res) => {
+
         expect(res.status).to.equal(200);
         expect(res.body.message).to.be.equal("Album songs fetched");
-        expect(res.body.albumSongs.length).to.be.equal(0);
+        expect(res.body.data.length).to.be.equal(0);
 
         done();
       });

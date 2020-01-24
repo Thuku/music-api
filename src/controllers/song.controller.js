@@ -58,8 +58,8 @@ class SongController {
         }
       });
       return res
-        .status(404)
-        .json({ message: "Song fetched successfully", data: artistSongs, status: 404 });
+        .status(200)
+        .json({ message: "Song fetched successfully", data: artistSongs, status: 200 });
     } catch (error) {
       next(error)
     }

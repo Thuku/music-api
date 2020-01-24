@@ -8,9 +8,9 @@ const development = {
   dialect: process.env.DIALECT
 };
 const test = {
-  username: process.env.USERNAME,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
+  username: process.env.TEST_USERNAME,
+  password: process.env.TEST_PASSWORD,
+  database: process.env.TEST_DATABASE,
   host: process.env.HOST,
   dialect: process.env.DIALECT
 };
